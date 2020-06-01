@@ -1,8 +1,8 @@
 .canto{
-    margin-top: 1em;
+    margin-top: auto;
     margin-left: 1em;
     margin-right: 1em;
-    margin-bottom: 4em;
+    margin-bottom: auto;
 }
 
 .fundo{
@@ -18,7 +18,7 @@
 
 .box-login{
     background-color: #ffffff;
-    margin-top: 5em;
+    margin-top: 2em;
     height: auto;
     padding: 2em;
     border-radius: 1em;

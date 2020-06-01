@@ -10,20 +10,24 @@ function cadastrarUsuario(){
 //cadastro próprio
 function cadUsuario(){
     const nome = document.getElementById("nome").value;
+    const telefone = document.getElementById("telefone").value;
     const email = document.getElementById("email").value;
     const senha = document.getElementById("senha").value;
+    const cep = document.getElementById("cep").value;
     const endereco = document.getElementById("endereco").value;
+    const numero = document.getElementById("numEndereco").value;
     const cidade = document.getElementById("cidade").value;
-    const telefone = document.getElementById("telefone").value;
+    const estado = document.getElementById("estado").value;
+    const status = "Ativo";
 
-    if(nome == "" || email == "" || senha == "" || endereco == "" || cidade == "" || telefone == ""){
+    if(nome == "" || telefone == "" || email == "" || senha == "" || cep == "" || endereco == "" || numero== "" || cidade == "" || estado == ""){
         Swal.fire({
             icon: 'error',
             title: 'Opa!',
             text: 'Favor preencher todos os dados',
         })
     }else{
-        const usuario = {id: Date.now(), nome, email, senha, endereco, cidade, telefone};
+        const usuario = {id: Date.now(), nome, telefone, email, senha, cep, endereco, numero, cidade, estado, status};
 
         let usuariosGravados = JSON.parse(window.localStorage.getItem("usuarios"));
 
@@ -92,6 +96,7 @@ function login(){
                 showConfirmButton: false,
                 timer: 1250
             })
+            window.localStorage.setItem("idLogado",usuariosGravados[usuarioIndex].id);
             setTimeout(function() {
                 window.location.href = "index_adm.html";
             }, 1300);
@@ -155,9 +160,7 @@ function deletarUsuario(id){
     });
 }
 
-function exibirUsuario(id){
-
-    let botaoAlterar = "";
+function exibirUsuario(){
 
     usuariosGravados = JSON.parse(window.localStorage.getItem("usuarios"));
 
@@ -171,10 +174,6 @@ function exibirUsuario(id){
         document.getElementById("telefone").value = usuariosGravados[usuarioIndex].telefone;
     }
 
-    botao = document.getElementById("botoes");
-    botaoAlterar = "<button class='btn btn-info' type='button' onclick='alterarUsuario("+id+")'>Alterar</button>";
-
-    botao.innerHTML = botaoAlterar;
 }
 
 function alterarUsuario(id){
@@ -212,4 +211,8 @@ function alterarUsuario(id){
     }
 }
 
-listarUsuario();
+function sair(){
+    window.localStorage.setItem("idLogado","");
+}
+
+exibirUsuario();
