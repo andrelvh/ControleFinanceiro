@@ -151,8 +151,9 @@ function alterarUsuario(){
         const numEndereco = document.getElementById("numEnderecoPerfil").value;
         const cidade = document.getElementById("cidadePerfil").value;
         const estado = document.getElementById("estadoPerfil").value;
+        const status = "Ativo";
 
-        usuariosGravados[usuarioIndex] = {id: idExcluir, nome, telefone, email, senha, cep, endereco, numEndereco, cidade, estado};
+        usuariosGravados[usuarioIndex] = {id: idExcluir, nome, telefone, email, senha, cep, endereco, numEndereco, cidade, estado, status};
 
         window.localStorage.setItem("usuarios",JSON.stringify(usuariosGravados));
 
