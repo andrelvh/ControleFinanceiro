@@ -34,7 +34,8 @@
             </li>
         </ul>
         <form class="form-inline navbar-nav">
-            <a class="nav-link" href="index.html">Sair</a>
+            <a class="nav-link" href="index.html" type="button"
+            onclick="sair()">Sair</a>
         </form>
     </nav>
 
@@ -51,34 +52,46 @@
             </div>
             <form name="form1">
                 <div class="row">
-                    <div class="form-group col-lg-12">
-                        <label>Nome:</label>
-                        <input type="text" id="nome" class="form-control">
-                    </div>
-                    <div class="form-group col-lg-6">
-                        <label>E-mail:</label>
-                        <input type="email" id="email" class="form-control" placeholder="email@email.com.br">
-                    </div>
-                    <div class="form-group col-lg-6">
-                        <label>Senha:</label>
-                        <input type="password" id="senha" class="form-control">
-                    </div>
-                    <div class="form-group col-lg-6">
-                        <label>Endereço:</label>
-                        <input type="text" id="endereco" class="form-control">
-                    </div>
-                    <div class="form-group col-lg-2">
-                        <label>Cidade:</label>
-                        <input type="text" id="cidade" class="form-control">
+                    <div class="form-group col-lg-8">
+                        <label class="texto">Nome:</label>
+                        <input type="text" id="nomePerfil" class="form-control">
                     </div>
                     <div class="form-group col-lg-4">
-                        <label>Telefone:</label>
-                        <input type="number" id="telefone" class="form-control">
+                        <label class="texto">Telefone:</label>
+                        <input type="number" id="telefonePerfil" class="form-control">
+                    </div>
+                    <div class="form-group col-lg-6">
+                        <label class="texto">E-mail:</label>
+                        <input type="email" id="emailPerfil" class="form-control" placeholder="email@email.com.br">
+                    </div>
+                    <div class="form-group col-lg-6">
+                        <label class="texto">Senha:</label>
+                        <input type="password" id="senhaPerfil" class="form-control" required>
+                    </div>
+                    <div class="form-group col-lg-3">
+                        <label class="texto">CEP:</label>
+                        <input type="text" id="cepPerfil" class="form-control">
+                    </div>
+                    <div class="form-group col-lg-7">
+                        <label class="texto">Endereço:</label>
+                        <input type="text" id="enderecoPerfil" class="form-control">
+                    </div>
+                    <div class="form-group col-lg-2">
+                        <label class="texto">Número:</label>
+                        <input type="number" id="numEnderecoPerfil" class="form-control">
+                    </div>
+                    <div class="form-group col-lg-7">
+                        <label class="texto">Cidade:</label>
+                        <input type="text" id="cidadePerfil" class="form-control">
+                    </div>
+                    <div class="form-group col-lg-5">
+                        <label class="texto">Estado:</label>
+                        <input type="text" id="estadoPerfil" class="form-control">
                     </div>
                 </div>
                 <div class="botoes">
                     <button class="btn btn-success" type="button"
-                    onclick="">Alterar
+                    onclick="alterarUsuario()">Alterar
                     </button>
                 </div>
             </form>

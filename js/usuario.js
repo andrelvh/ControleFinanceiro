@@ -9,25 +9,25 @@ function cadastrarUsuario(){
 
 //cadastro próprio
 function cadUsuario(){
-    const nome = document.getElementById("nome").value;
-    const telefone = document.getElementById("telefone").value;
-    const email = document.getElementById("email").value;
-    const senha = document.getElementById("senha").value;
-    const cep = document.getElementById("cep").value;
-    const endereco = document.getElementById("endereco").value;
-    const numero = document.getElementById("numEndereco").value;
-    const cidade = document.getElementById("cidade").value;
-    const estado = document.getElementById("estado").value;
+    const nome = document.getElementById("nomeCad").value;
+    const telefone = document.getElementById("telefoneCad").value;
+    const email = document.getElementById("emailCad").value;
+    const senha = document.getElementById("senhaCad").value;
+    const cep = document.getElementById("cepCad").value;
+    const endereco = document.getElementById("enderecoCad").value;
+    const numEndereco = document.getElementById("numEnderecoCad").value;
+    const cidade = document.getElementById("cidadeCad").value;
+    const estado = document.getElementById("estadoCad").value;
     const status = "Ativo";
 
-    if(nome == "" || telefone == "" || email == "" || senha == "" || cep == "" || endereco == "" || numero== "" || cidade == "" || estado == ""){
+    if(nome == "" || telefone == "" || email == "" || senha == "" || cep == "" || endereco == "" || numEndereco == "" || cidade == "" || estado == ""){
         Swal.fire({
             icon: 'error',
             title: 'Opa!',
             text: 'Favor preencher todos os dados',
         })
     }else{
-        const usuario = {id: Date.now(), nome, telefone, email, senha, cep, endereco, numero, cidade, estado, status};
+        const usuario = {id: Date.now(), nome, telefone, email, senha, cep, endereco, numEndereco, cidade, estado, status};
 
         let usuariosGravados = JSON.parse(window.localStorage.getItem("usuarios"));
 
@@ -69,8 +69,8 @@ function cadUsuario(){
 }
 
 function login(){
-    const email = document.getElementById("email").value;
-    const senha = document.getElementById("senha").value;
+    const email = document.getElementById("emailLog").value;
+    const senha = document.getElementById("senhaLog").value;
 
     let usuariosGravados = JSON.parse(window.localStorage.getItem("usuarios"));
 
@@ -88,14 +88,25 @@ function login(){
                 title: 'Opa!',
                 text: 'Senha não cadastrada em nosso sistema.',
             });
-            document.getElementById("senha").value = "";
+            document.getElementById("senhaLog").value = "";
         }else{
-            Swal.fire({
-                icon: 'success',
-                title: 'Usuário logado com sucesso!',
+            const Toast = Swal.mixin({
+                toast: true,
+                position: 'top-end',
                 showConfirmButton: false,
-                timer: 1250
+                timer: 1500,
+                timerProgressBar: true,
+                onOpen: (toast) => {
+                  toast.addEventListener('mouseenter', Swal.stopTimer)
+                  toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
             })
+              
+            Toast.fire({
+                icon: 'success',
+                title: 'Usuário logado com sucesso!'
+            })
+
             window.localStorage.setItem("idLogado",usuariosGravados[usuarioIndex].id);
             setTimeout(function() {
                 window.location.href = "index_adm.html";
@@ -104,103 +115,50 @@ function login(){
     }
 }
 
-function listarUsuario(){
-
-    usuariosGravados = JSON.parse(window.localStorage.getItem("usuarios"));
-
-    let linha = "";
-    usuariosGravados.forEach(usuario => {
-        row = document.getElementById("tbody");
-        linha += "<tr>" +
-        "<td id='tdId'>" + usuario.id +"</td>"+
-        "<td id='thNome'>" + usuario.nome + "</td>"+
-        "<td id='thEmail'>" + usuario.email + "</td>"+
-        "<td id='thEndereco'>" + usuario.endereco + "</td>"+
-        "<td id='thCidade'>" + usuario.cidade + "</td>"+
-        "<td id='thTelefone'>" + usuario.telefone + "</td>"+
-        "<td id='thAcoes'><button class='btn btn-outline-success' onclick='exibirUsuario("+usuario.id+")'><i class='fa fa-edit'></i></button>"+
-        "<button class='btn btn-outline-danger' onclick='deletarUsuario("+usuario.id+")'><i class='fa fa-trash'></i></button></td>"
-        + "<tr>";
-
-        row.innerHTML = linha;
-    })
-}
-
-function deletarUsuario(id){
-
-    usuariosGravados = JSON.parse(window.localStorage.getItem("usuarios"));
-
-    Swal.fire({
-        title: 'Confirma a exclusão do usuário?',
-        
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Sim'
-      }).then((result) => {
-        if (result.value) {
-            let usuarioIndex = usuariosGravados.findIndex(usuario => usuario.id == id);
-            if(usuarioIndex >= 0){
-              usuariosGravados.splice(usuarioIndex,1);
-              window.localStorage.setItem("usuarios",JSON.stringify(usuariosGravados));
-              if(usuariosGravados.length > 0){
-                listarUsuario();
-              }else{
-                row = document.getElementById("tbody");
-                row.innerHTML = "";
-              }
-            } 
-          Swal.fire(
-            'Usuário deletado!',
-            '',
-            'success'
-          )
-        }
-    });
-}
-
 function exibirUsuario(){
 
     usuariosGravados = JSON.parse(window.localStorage.getItem("usuarios"));
+    const idExcluir = JSON.parse(window.localStorage.getItem("idLogado"));
 
-    let usuarioIndex = usuariosGravados.findIndex(usuario => usuario.id == id);
-    if(usuarioIndex >= 0){
-        document.getElementById("nome").value = usuariosGravados[usuarioIndex].nome;
-        document.getElementById("email").value = usuariosGravados[usuarioIndex].email;
-        document.getElementById("senha").value = usuariosGravados[usuarioIndex].senha;
-        document.getElementById("endereco").value = usuariosGravados[usuarioIndex].endereco;
-        document.getElementById("cidade").value = usuariosGravados[usuarioIndex].cidade;
-        document.getElementById("telefone").value = usuariosGravados[usuarioIndex].telefone;
-    }
-
+    usuariosGravados.forEach(usuario => {
+        if(usuario.id == idExcluir){
+            document.getElementById("nomePerfil").value = usuario.nome;
+            document.getElementById("telefonePerfil").value = usuario.telefone;
+            document.getElementById("emailPerfil").value = usuario.email;
+            document.getElementById("cepPerfil").value = usuario.cep;
+            document.getElementById("enderecoPerfil").value = usuario.endereco;
+            document.getElementById("numEnderecoPerfil").value = usuario.numEndereco;
+            document.getElementById("cidadePerfil").value = usuario.cidade;
+            document.getElementById("estadoPerfil").value = usuario.estado;
+        }
+    })
 }
 
-function alterarUsuario(id){
+function alterarUsuario(){
 
     usuariosGravados = JSON.parse(window.localStorage.getItem("usuarios"));
 
-    let usuarioIndex = usuariosGravados.findIndex(usuario => usuario.id == id);
-    if(usuarioIndex >= 0){
-        const nome = document.getElementById("nome").value;
-        const email = document.getElementById("email").value;
-        const senha = document.getElementById("senha").value;
-        const endereco = document.getElementById("endereco").value;
-        const cidade = document.getElementById("cidade").value;
-        const telefone = document.getElementById("telefone").value;
+    const idExcluir = JSON.parse(window.localStorage.getItem("idLogado"));
 
-        usuariosGravados[usuarioIndex] = {id, nome, email, senha, endereco, cidade, telefone};
+    let usuarioIndex = usuariosGravados.findIndex(usuario => usuario.id == idExcluir);
+    if(usuarioIndex >= 0){
+        const nome = document.getElementById("nomePerfil").value;
+        const telefone = document.getElementById("telefonePerfil").value;
+        const email = document.getElementById("emailPerfil").value;
+        const senha = document.getElementById("senhaPerfil").value;
+        const cep = document.getElementById("cepPerfil").value;
+        const endereco = document.getElementById("enderecoPerfil").value;
+        const numEndereco = document.getElementById("numEnderecoPerfil").value;
+        const cidade = document.getElementById("cidadePerfil").value;
+        const estado = document.getElementById("estadoPerfil").value;
+
+        usuariosGravados[usuarioIndex] = {id: idExcluir, nome, telefone, email, senha, cep, endereco, numEndereco, cidade, estado};
 
         window.localStorage.setItem("usuarios",JSON.stringify(usuariosGravados));
 
         form1.reset();
 
-        listarUsuario();
-
-        botao = document.getElementById("botoes");
-        botaoCadastrar = "<button class='btn btn-success' type='button' onclick='cadastrarUsuario()'>Cadastrar</button>";
-
-        botao.innerHTML = botaoCadastrar;
+        exibirUsuario();
 
         Swal.fire({
             icon: 'success',
