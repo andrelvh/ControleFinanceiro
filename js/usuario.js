@@ -63,6 +63,9 @@ function cadUsuario(){
                     timer: 1250
                 });
                 form1.reset();
+                setTimeout(function() {
+                    window.location.href = "index.html";
+                }, 1500);
             }
         }
     }
@@ -90,27 +93,36 @@ function login(){
             });
             document.getElementById("senhaLog").value = "";
         }else{
-            const Toast = Swal.mixin({
-                toast: true,
-                position: 'top-end',
-                showConfirmButton: false,
-                timer: 1500,
-                timerProgressBar: true,
-                onOpen: (toast) => {
-                  toast.addEventListener('mouseenter', Swal.stopTimer)
-                  toast.addEventListener('mouseleave', Swal.resumeTimer)
-                }
-            })
-              
-            Toast.fire({
-                icon: 'success',
-                title: 'Usuário logado com sucesso!'
-            })
+            if(usuariosGravados[usuarioIndex].status == "Inativo"){
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Opa!',
+                    text: 'Usuário não está ativo.',
+                });
 
-            window.localStorage.setItem("idLogado",usuariosGravados[usuarioIndex].id);
-            setTimeout(function() {
-                window.location.href = "index_adm.html";
-            }, 1300);
+            }else{
+                const Toast = Swal.mixin({
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timer: 1500,
+                    timerProgressBar: true,
+                    onOpen: (toast) => {
+                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                    }
+                })
+                
+                Toast.fire({
+                    icon: 'success',
+                    title: 'Usuário logado com sucesso!'
+                })
+
+                window.localStorage.setItem("idLogado",usuariosGravados[usuarioIndex].id);
+                setTimeout(function() {
+                    window.location.href = "index_adm.html";
+                }, 1500);
+            }
         }
     }
 }

@@ -11,6 +11,11 @@
     justify-content: center;
 }
 
+.card{
+    margin-top: 1em;
+    text-align: center;
+}
+
 .texto{
     text-align: center;
     color: black;
@@ -26,4 +31,25 @@
 
 .botoes{
     text-align: center;
+}
+
+.valorEntrada{
+    text-align: center;
+    font-weight: bold;
+    font-size: 2em;
+    color: darkcyan;
+}
+
+.valorSaida{
+    text-align: center;
+    font-weight: bold;
+    font-size: 2em;
+    color: darkred;
+}
+
+.saldo{
+    text-align: center;
+    font-weight: bold;
+    font-size: 2em;
+    color: darkgreen;
 }
