@@ -1,52 +1,90 @@
-const categorias = [];
+const contas = [];
 
-function cadastrarCategoria(){
-    cadCategoria();
+function validarCategorias(){
+    let categoriasGravadas = JSON.parse(window.localStorage.getItem("categorias"));
 
-    listarCategoria();
+    if(categoriasGravadas == null){
+        Swal.fire({
+            title: 'Opa!',
+            text: "Categoria deve ser cadastrada antes.",
+            icon: 'error',
+            showCancelButton: false,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Ok'
+        }).then((result) => {
+            if (result.value) {
+                window.location.href = "index_adm.html";
+            }
+        })
+    }
+
+
+    let selectCat = "";
+    select = document.getElementById("categoriaConta");
+
+    categoriasGravadas.forEach(categoria => {
+        selectCat += "<option value=" + categoria.id + ">" + categoria.nome + "</option>";
+    });
+
+    select.innerHTML = selectCat;
 }
 
-function cadCategoria(){
-    const nome = document.getElementById("nomeCat").value;
 
-    if(nome == ""){
+function cadastrarConta(){
+    cadConta();
+
+    listarConta();
+}
+
+function cadConta(){
+    categoriasGravadas = JSON.parse(window.localStorage.getItem("categorias"));
+
+    const nome = document.getElementById("nomeConta").value;
+    const tipo = document.getElementById("tipoConta").value;
+    const valor = document.getElementById("valorConta").value;
+    const categoriaId = document.getElementById("categoriaConta").value;
+    const status = document.getElementById("statusConta").value;
+
+    if(nome == "" || tipo == "" || valor == "" || categoriaId == "" || status == ""){
         Swal.fire({
             icon: 'error',
             title: 'Opa!',
-            text: 'Favor preencher o nome da categoria',
+            text: 'Favor preencher todos os dados',
         })
     }else{
-        const categoria = {id: Date.now(), nome};
+        const conta = {id: Date.now(), nome, tipo, valor, categoriaId, status};
 
-        let categoriasGravadas = JSON.parse(window.localStorage.getItem("categorias"));
+        let contasGravadas = JSON.parse(window.localStorage.getItem("contas"));
 
-        if(categoriasGravadas == null){
-            window.localStorage.setItem("categorias",JSON.stringify([]));
-            categoriasGravadas = JSON.parse(window.localStorage.getItem("categorias"));
-            categoriasGravadas.push(categoria);
-            window.localStorage.setItem("categorias",JSON.stringify(categoriasGravadas));
+        if(contasGravadas == null){
+            window.localStorage.setItem("contas",JSON.stringify([]));
+            contasGravadas = JSON.parse(window.localStorage.getItem("contas"));
+            contasGravadas.push(conta);
+            window.localStorage.setItem("contas",JSON.stringify(contasGravadas));
             Swal.fire({
                 icon: 'success',
-                title: 'Categoria cadastrada com sucesso!',
+                title: 'Conta cadastrada com sucesso!',
                 showConfirmButton: false,
                 timer: 1250
             });
             form1.reset();
-
+            
         }else{
-            let categoriaIndex = categoriasGravadas.findIndex(categoria => categoria.nome == nome);
-            if(categoriaIndex != -1){
+
+            let contaIndex = contasGravadas.findIndex(conta => conta.nome == nome);
+            if(contaIndex != -1){
                 Swal.fire({
                     icon: 'error',
                     title: 'Opa!',
-                    text: 'Categoria já cadastrada em nosso sistema.',
+                    text: 'Conta de mesmo nome já cadastrada em nosso sistema.',
                 });
             }else{
-                categoriasGravadas.push(categoria);
-                window.localStorage.setItem("categorias",JSON.stringify(categoriasGravadas));
+                contasGravadas.push(conta);
+                window.localStorage.setItem("contas",JSON.stringify(contasGravadas));
                 Swal.fire({
                     icon: 'success',
-                    title: 'Categoria cadastrada com sucesso!',
+                    title: 'Conta cadastrada com sucesso!',
                     showConfirmButton: false,
                     timer: 1250
                 });
@@ -56,67 +94,24 @@ function cadCategoria(){
     }
 }
 
-function listarCategoria(){
-    categoriasGravadas = JSON.parse(window.localStorage.getItem("categorias"));
+function listarConta(){
+    contasGravadas = JSON.parse(window.localStorage.getItem("contas"));
 
     let linha = "";
-    categoriasGravadas.forEach(categoria => {
+    contasGravadas.forEach(conta => {
         row = document.getElementById("tbody");
         linha += "<tr>" +
-        "<td id='tdId'>" + categoria.id +"</td>"+
-        "<td id='thNome'>" + categoria.nome + "</td>"+
-        "<td id='thAcoes'><button class='btn btn-outline-success' onclick='exibirCategoria("+categoria.id+")'><i class='fa fa-edit'></i></button>"+
+        "<td id='tdId'>" + conta.id +"</td>"+
+        "<td id='thNome'>" + conta.nome + "</td>"+
+        "<td id='thTipo'>" + conta.tipo + "</td>"+
+        "<td id='thValor'>" + conta.valor + "</td>"+
+        "<td id='thCategoria'>" + conta.categoriaId + "</td>"+
+        "<td id='thStatus'>" + conta.status + "</td>"+
         "<tr>";
 
         row.innerHTML = linha;
     })
 }
 
-function exibirCategoria(id){
-
-    let botaoAlterar = "";
-
-    categoriasGravadas = JSON.parse(window.localStorage.getItem("categorias"));
-
-    let categoriaIndex = categoriasGravadas.findIndex(categoria => categoria.id == id);
-    if(categoriaIndex >= 0){
-        document.getElementById("nomeCat").value = categoriasGravadas[categoriaIndex].nome;
-    }
-
-    botao = document.getElementById("botoes");
-    botaoAlterar = "<button class='btn btn-info' type='button' onclick='alterarCategoria("+id+")'>Alterar</button>";
-
-    botao.innerHTML = botaoAlterar;
-}
-
-function alterarCategoria(id){
-
-    categoriasGravadas = JSON.parse(window.localStorage.getItem("categorias"));
-
-    let categoriaIndex = categoriasGravadas.findIndex(categoria => categoria.id == id);
-    if(categoriaIndex >= 0){
-        const nome = document.getElementById("nomeCat").value;
-
-        categoriasGravadas[categoriaIndex] = {id, nome};
-
-        window.localStorage.setItem("categorias",JSON.stringify(categoriasGravadas));
-
-        form1.reset();
-
-        listarCategoria();
-
-        botao = document.getElementById("botoes");
-        botaoCadastrar = "<button class='btn btn-success' type='button' onclick='cadastrarCategoria()'>Cadastrar</button>";
-
-        botao.innerHTML = botaoCadastrar;
-
-        Swal.fire({
-            icon: 'success',
-            title: 'Categoria alterada com sucesso!',
-            showConfirmButton: false,
-            timer: 1250
-        })
-    }
-}
-
-listarCategoria();
+validarCategorias();
+listarConta();
