@@ -40,7 +40,7 @@
     text-align: center;
 }
 
-.valorEntrada{
+.saldo{
     text-align: center;
     font-weight: bold;
     font-size: 2em;
@@ -54,7 +54,7 @@
     color: darkred;
 }
 
-.saldo{
+.valorEntrada{
     text-align: center;
     font-weight: bold;
     font-size: 2em;
