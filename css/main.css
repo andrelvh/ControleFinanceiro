@@ -2,7 +2,7 @@
     margin-top: 1em;
     margin-left: 1em;
     margin-right: 1em;
-    margin-bottom: auto;
+    margin-bottom: 2em;
 }
 
 .canto-perfil{
@@ -59,4 +59,12 @@
     font-weight: bold;
     font-size: 2em;
     color: darkgreen;
+}
+
+.box-movimentacao{
+    text-align: left;
+}
+
+.tabela{
+    margin-top: 1em;
 }

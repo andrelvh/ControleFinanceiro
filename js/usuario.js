@@ -137,6 +137,7 @@ function exibirUsuario(){
             document.getElementById("nomePerfil").value = usuario.nome;
             document.getElementById("telefonePerfil").value = usuario.telefone;
             document.getElementById("emailPerfil").value = usuario.email;
+            document.getElementById("senhaPerfil").value = usuario.senha;
             document.getElementById("cepPerfil").value = usuario.cep;
             document.getElementById("enderecoPerfil").value = usuario.endereco;
             document.getElementById("numEnderecoPerfil").value = usuario.numEndereco;

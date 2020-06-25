@@ -64,7 +64,7 @@ function listarCategoria(){
     categoriasGravadas.forEach(categoria => {
         row = document.getElementById("tbody");
         linha += "<tr>" +
-        "<td id='tdId'>" + categoria.id +"</td>"+
+        "<td id='tdId' style='display: none;'>" + categoria.id +"</td>"+
         "<td id='thNome'>" + categoria.nome + "</td>"+
         "<td id='thAcoes'><button class='btn btn-outline-success' onclick='exibirCategoria("+categoria.id+")'><i class='fa fa-edit'></i></button>"+
         "<tr>";

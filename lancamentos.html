@@ -54,50 +54,76 @@
 <div class="canto">
 
     <div class="row">
-        <div class="col-lg-5">
+        <div class="form-group col-1 col-lg-1"></div>
 
-            <div class="row">
-                <div class="col-lg-12">
-                    <h3 class="texto">
-                        Cadastro de Contas
-                    </h3>
-                    <br>
-                    <h5 class="texto">
-                        Preencha os dados abaixo para criar uma conta:
-                    </h5>
-                    <br>
+        <div class="form-group col-3 col-lg-3">
+            <div class="card">
+                <div class="card-header texto">
+                    <h4>Total de Entrada</h4>
+                </div>
+                <div class="card-body numerosIndex">
+                    <span id="totalEntrada" class="valorEntrada">R$ 0.00</span>
                 </div>
             </div>
+        </div>
 
+        <div class="form-group col-3 col-lg-3">
+            <div class="card">
+                <div class="card-header texto">
+                    <h4>Total de Saída</h4>
+                </div>
+                <div class="card-body numerosIndex">
+                    <span id="totalSaida" class="valorSaida">R$ 0.00</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group col-4 col-lg-4">
+            <div class="card">
+                <div class="card-header texto">
+                    <h4 style="font-weight: bold;">Saldo</h4>
+                </div>
+                <div class="card-body numerosIndex">
+                    <span id="Saldo" class="saldo">R$ 0.00</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group col-1 col-lg-1"></div>
+    </div>
+
+
+
+    <div class="row">
+
+        <div class="form-group col-1 col-lg-1"></div>
+
+        <div class="col-lg-3">
 
             <div class="row">
                 <div class="col-lg-12">
-                    <form name="form1">
-                        <div class="row">
+                    <div class="card">
+                        <div class="card-header texto">
+                            <h4>Lançar Movimentação</h4>
+                        </div>
+                        <div class="card-body box-movimentacao">
                             <div class="form-group col-lg-12">
-                                <label>Nome:</label>
-                                <input type="text" id="nomeConta" class="form-control">
-                            </div>
-                            <div class="form-group col-lg-12">
-                                <label>Tipo:</label>
-                                <select id="tipoConta" class="form-control">
-                                    <option value="Entrada">Entrada</option>
-                                    <option value="Saida">Saída</option>
+                                <label>Conta:</label>
+                                <select id="contaLancamento" class="form-control">
+
                                 </select>
                             </div>
                             <div class="form-group col-lg-12">
-                                <label class="texto">Categoria:</label>
-                                <select id="categoriaConta" class="form-control">
-                                
-                                </select>
+                                <label>Valor:</label>
+                                <input type="number" id="valorLancamento" class="form-control">
+                            </div>
+                            <div id="botoes" class="form-group col-lg-12">
+                                <button class="btn btn-success" type="button"
+                                onclick="cadastrarLancamento()">Cadastrar
+                                </button>
                             </div>
                         </div>
-                        <div id="botoes">
-                            <button class="btn btn-success" type="button"
-                            onclick="cadastrarConta()">Cadastrar
-                            </button>
-                        </div>
-                    </form>
+                    </div>
                 </div>
             </div>
 
@@ -107,33 +133,30 @@
         <div class="col-lg-7">
 
             <div class="row">
-                <div class="col-lg-12">
-                    <h3 class="texto">Lista de Contas</h3>
+                <div class="col-lg-12 tabela">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th style="display: none;">ID</th>
+                                <th>Conta</th>
+                                <th>Valor</th>
+                                <th>Data</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody id="tbody">
+                            
+                        </tbody>
+                    </table>
                 </div>
             </div>
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th style="display: none;">ID</th>
-                        <th>Nome</th>
-                        <th>Tipo</th>
-                        <th style="display: none;">Valor</th>
-                        <th>Categoria</th>
-                        <th style="display: none;">Status</th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody id="tbody">
-                    
-                </tbody>
-            </table>
         </div>
     </div>
 </div>
 
 </div>
 
-<script src="js/conta.js"></script>
+<script src="js/lancamento.js"></script>
 
 </body>
-</html>
+</html
